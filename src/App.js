@@ -2,26 +2,8 @@ import React, { useEffect, useState } from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 import axios from 'axios';
-// import { useState } from 'react';
-
-// const TASKS = [
-//   {
-//     id: 1,
-//     title: 'Mow the lawn',
-//     isComplete: false,
-//   },
-//   {
-//     id: 2,
-//     title: 'Cook Pasta',
-//     isComplete: true,
-//   },
-// ];
 
 const App = () => {
-  // const initialcopy = TASKS.map((task) => {
-  //   return { ...task };
-  // });
-
   const [taskData, setTaskData] = useState([]);
 
   const URL = 'http://localhost:5000/tasks';
