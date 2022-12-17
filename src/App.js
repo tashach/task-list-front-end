@@ -14,9 +14,16 @@ const App = () => {
       .then((response) => {
         console.log('calling API');
         const taskAPICOPY = response.data.map((task) => {
-          return { ...task };
+          // return { ...task, isComplete: task.is_complete };
+          return {
+            description: task.description,
+            id: task.id,
+            isComplete: task.is_complete,
+            title: task.title,
+          };
         });
         setTaskData(taskAPICOPY);
+        console.log('taskAPICOPY:', taskAPICOPY);
       })
       .catch((error) => {
         console.log(error);
@@ -24,7 +31,8 @@ const App = () => {
   }, []);
 
   const updateIsComplete = (taskId, updatedIsComplete) => {
-    console.log('UpdateIs complete is being called');
+    console.log('UpdateIs complete is being called:');
+    console.log(updatedIsComplete);
     const newTaskData = [];
     axios
       .patch(`${URL}/${taskId}/mark_complete`)
@@ -38,6 +46,7 @@ const App = () => {
               isComplete: updatedIsComplete,
             };
             newTaskData.push(newTask);
+            console.log(newTask);
           }
         }
         setTaskData(newTaskData);
