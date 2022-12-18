@@ -82,6 +82,13 @@ const App = () => {
     }
   };
 
+  // const createTask = () => {
+  //   console.log('create task called');
+  //   axios.post(`${URL}`).then(() => {
+  //     const newTaskData = [];
+  //   });
+  // };
+
   const deleteTask = (taskId) => {
     console.log('delete task called');
     axios
