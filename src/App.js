@@ -34,26 +34,52 @@ const App = () => {
     console.log('UpdateIs complete is being called:');
     console.log(updatedIsComplete);
     const newTaskData = [];
-    axios
-      .patch(`${URL}/${taskId}/mark_complete`)
-      .then(() => {
-        for (const task of taskData) {
-          if (task.id !== taskId) {
-            newTaskData.push(task);
-          } else {
-            const newTask = {
-              ...task,
-              isComplete: updatedIsComplete,
-            };
-            newTaskData.push(newTask);
-            console.log(newTask);
+
+    if (updatedIsComplete === true) {
+      // mark complete
+      axios
+        .patch(`${URL}/${taskId}/mark_complete`)
+        .then(() => {
+          for (const task of taskData) {
+            if (task.id !== taskId) {
+              newTaskData.push(task);
+            } else {
+              const newTask = {
+                ...task,
+                isComplete: updatedIsComplete,
+              };
+              newTaskData.push(newTask);
+              console.log(newTask);
+            }
           }
-        }
-        setTaskData(newTaskData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+          setTaskData(newTaskData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      // mark incomplete
+      axios
+        .patch(`${URL}/${taskId}/mark_incomplete`)
+        .then(() => {
+          for (const task of taskData) {
+            if (task.id !== taskId) {
+              newTaskData.push(task);
+            } else {
+              const newTask = {
+                ...task,
+                isComplete: updatedIsComplete,
+              };
+              newTaskData.push(newTask);
+              console.log(newTask);
+            }
+          }
+          setTaskData(newTaskData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const deleteTask = (taskId) => {
