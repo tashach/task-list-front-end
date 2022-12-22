@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
 import axios from 'axios';
+import NewTaskForm from './components/NewTaskForm.js';
 
 const App = () => {
   const [taskData, setTaskData] = useState([]);
@@ -82,13 +83,6 @@ const App = () => {
     }
   };
 
-  // const createTask = () => {
-  //   console.log('create task called');
-  //   axios.post(`${URL}`).then(() => {
-  //     const newTaskData = [];
-  //   });
-  // };
-
   const deleteTask = (taskId) => {
     console.log('delete task called');
     axios
@@ -107,6 +101,24 @@ const App = () => {
       });
   };
 
+  const addTask = (newTaskInfo) => {
+    axios
+      .post(URL, newTaskInfo)
+      .then((response) => {
+        console.log(response);
+        const newTasks = [...taskData];
+        const newTaskJSON = {
+          ...newTaskInfo,
+          id: response.data.id,
+        };
+        newTasks.push(newTaskJSON);
+        setTaskData(newTasks);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -119,6 +131,7 @@ const App = () => {
             updateIsComplete={updateIsComplete}
             deleteTask={deleteTask}
           />
+          <NewTaskForm addTask={addTask} />
         </div>
       </main>
     </div>
